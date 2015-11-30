@@ -3,10 +3,8 @@ def get_page(self):
     A function which will be monkeypatched onto the request to get the current
     integer representing the current page.
     """
-    try:
-        return int(self.REQUEST['page'])
-    except (KeyError, ValueError, TypeError):
-        return 1
+    key = 'page'
+    return int(self.GET.get(key, self.POST.get(key, 1)
 
 
 class PaginationMiddleware(object):
